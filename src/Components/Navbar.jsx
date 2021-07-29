@@ -28,24 +28,8 @@ export function Navbar() {
       title: "Home"
     },
     {
-      to: "/services",
-      title: "Services"
-    },
-    {
-      to: "/about-us",
-      title: "About"
-    },
-    {
-      to: "/contact",
-      title: "Contact"
-    },
-    {
-      to: "/Users",
-      title: "Users"
-    },
-    {
-      to: "/login",
-      title: "Login"
+      to: "/Products",
+      title: "Products"
     }
   ];
   return (

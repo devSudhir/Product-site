@@ -1,55 +1,39 @@
 import "./styles.css";
-import { Route, Switch, Link } from "react-router-dom";
-import { About } from "./Components/About";
-import { Home } from "./ComponProents/Home";
-import { Login } from "./Components/Login";
-import { Contact } from "./Components/Contact";
-import { Services } from "./Components/Services";
+import { Route, Switch } from "react-router-dom";
+import { Home } from "./Components/Home";
+import { Products } from "./Components/Products";
 import { Navbar } from "./Components/Navbar";
-import { UserDetails } from "./Components/UserDetails";
+import { ProductDetails } from "./Components/ProductDetails";
+import { useEffect, useState } from "react";
+
 export default function App() {
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((json) => {
+        handleProduct(json);
+      });
+  }, []);
+  const handleProduct = (value) => {
+    setProduct(value);
+  };
   return (
     <div className="App">
       <Navbar />
 
       <Switch>
-        <Route path="/services">
-          <Services />
-        </Route>
-        <Route path="/about-us">
-          <About />
-        </Route>
-        <Route exact path="/contact">
-          <Contact />
-        </Route>
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/contact/others">Other contact pages</Route>
-        <Route path="/Users">
-          {[1, 2, 3, 4].map((ele, index) => {
-            return <Link to={`/User/${ele}`}>User: {ele}</Link>;
-          })}
+
+        <Route path="/Products">
+          <Products product={product} />
         </Route>
-        <Route path="/User/:id">
-          <UserDetails />
-        </Route>
-        <Route path="/login">
-          <Login />
+        <Route path="/Product/:id">
+          <ProductDetails product={product} />
         </Route>
       </Switch>
     </div>
   );
 }
-
-/* function Dashboard() {
-  return <h2>Dashboard</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-function Contact() {
-  return <h2>Contact</h2>;
-}
- */
